@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M.A.S Ornata — Thank You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340..500;1,9..144,400..500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: '#395638',
+          'brand-deep': '#26362A',
+          'brand-soft': '#6C8368',
+          paper: '#FAF9F6',
+        },
+        fontFamily: {
+          sans: ['Jost', 'sans-serif'],
+          serif: ['Fraunces', 'serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  .check-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    animation: circle-draw 0.6s ease-out forwards;
+  }
+  .check-mark {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: check-draw 0.35s ease-out 0.55s forwards;
+  }
+  @keyframes circle-draw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes check-draw {
+    to { stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body class="bg-paper text-brand-deep font-sans antialiased min-h-screen">
+
+<section class="min-h-screen flex items-center justify-center px-4 sm:px-6 py-16">
+  <div class="w-full max-w-md bg-white border border-brand/10 rounded p-8 sm:p-12 text-center">
+
+    <svg viewBox="0 0 52 52" class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6" aria-hidden="true">
+      <circle class="check-circle" cx="26" cy="26" r="24" fill="none" stroke="#395638" stroke-width="2"/>
+      <path class="check-mark" fill="none" stroke="#395638" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M15 27 L22.5 34.5 L37 18"/>
+    </svg>
+
+    <h1 id="thankYouHeading" class="font-serif font-normal text-2xl sm:text-3xl mb-2">Thank you.</h1>
+    <p class="text-brand-deep/60 text-sm sm:text-base leading-relaxed mb-8">
+      It was a pleasure to connect. We look forward to staying in touch. 
+    </p>
+
+    <a href="index.html"
+       class="inline-block bg-brand-deep text-white text-sm tracking-wide px-9 py-3.5 rounded-full hover:bg-brand transition">
+      Back 
+    </a>
+    <p id="redirectNote" class="text-xs text-brand-deep/45 mt-4"></p>
+  </div>
+</section>
+
+<script>
+  function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name) || '';
+  }
+
+  const title = getParam('title').trim();
+  const firstName = getParam('first').trim();
+  const heading = document.getElementById('thankYouHeading');
+
+  const namePart = [title, firstName].filter(Boolean).join(' ');
+  heading.textContent = namePart ? 'Thank you, ' + namePart + '.' : 'Thank you.';
+
+  const redirectNote = document.getElementById('redirectNote');
+  let secondsLeft = 8;
+  redirectNote.textContent = 'Returning to the site in ' + secondsLeft + 's…';
+
+  const countdown = setInterval(() => {
+    secondsLeft -= 1;
+    if (secondsLeft <= 0) {
+      clearInterval(countdown);
+      window.location.href = 'index.html';
+      return;
+    }
+    redirectNote.textContent = 'Returning to the site in ' + secondsLeft + 's…';
+  }, 1000);
+</script>
+
+</body>
+</html>
